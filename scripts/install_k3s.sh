@@ -26,7 +26,25 @@ echo "======================================="
 echo "Waiting for cluster startup"
 echo "======================================="
 
-sleep 20
+# Wait for k3s to be ready
+echo "Waiting for k3s service to start..."
+sleep 30
+
+# Wait for API server to be responsive
+echo "Waiting for Kubernetes API server..."
+for i in {1..30}; do
+  if kubectl cluster-info >/dev/null 2>&1; then
+    echo "API server is ready!"
+    break
+  fi
+  echo "Waiting... ($i/30)"
+  sleep 10
+done
+
+if ! kubectl cluster-info >/dev/null 2>&1; then
+  echo "ERROR: Kubernetes API server did not become ready"
+  exit 1
+fi
 
 echo ""
 echo "======================================="
