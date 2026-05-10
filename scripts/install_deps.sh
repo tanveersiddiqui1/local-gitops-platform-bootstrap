@@ -21,16 +21,13 @@ https://apt.releases.hashicorp.com $(lsb_release -cs) main" | \
 sudo apt update
 sudo apt install -y terraform
 
-# Install kubectl
-curl -fsSL https://packages.cloud.google.com/apt/doc/apt-key.gpg | sudo gpg --dearmor -o /usr/share/keyrings/kubernetes-archive-keyring.gpg
-
-echo "deb [signed-by=/usr/share/keyrings/kubernetes-archive-keyring.gpg] https://apt.kubernetes.io/ kubernetes-xenial main" | \
-  sudo tee /etc/apt/sources.list.d/kubernetes.list
-
-sudo apt update
-sudo apt install -y kubectl
+# Install kubectl via the official release binary
+curl -LO "https://dl.k8s.io/release/$(curl -L -s https://dl.k8s.io/release/stable.txt)/bin/linux/amd64/kubectl"
+sudo install -o root -g root -m 0755 kubectl /usr/local/bin/kubectl
+rm kubectl
 
 echo ""
 echo "======================================="
 echo "WSL dependency installation completed"
 echo "======================================="
+``
