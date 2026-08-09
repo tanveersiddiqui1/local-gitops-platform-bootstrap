@@ -1,12 +1,13 @@
 .PHONY: bootstrap bootstrap-flux destroy
 
-bootstrap:
+cluster-create:
 	cd terraform && terraform init
 	cd terraform && terraform apply -auto-approve
+
+flux-bootstrap:
 	bash scripts/bootstrap_flux.sh
 
-bootstrap-flux:
-	bash scripts/bootstrap_flux.sh
+bootstrap: cluster-create flux-bootstrap
 
 destroy:
 	cd terraform && terraform destroy -auto-approve
