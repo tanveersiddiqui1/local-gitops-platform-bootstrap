@@ -7,7 +7,7 @@ echo "Installing k3s cluster"
 echo "======================================="
 
 # Install k3s with a version that supports cgroup v1 (for WSL compatibility)
-curl -sfL https://get.k3s.io | INSTALL_K3S_VERSION=v1.30.2+k3s1 sh -
+curl -sfL https://get.k3s.io | INSTALL_K3S_VERSION=v1.34.10+k3s1 sh -
 
 echo ""
 echo "======================================="
