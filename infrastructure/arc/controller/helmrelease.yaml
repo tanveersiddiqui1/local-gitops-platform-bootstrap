@@ -1,0 +1,23 @@
+apiVersion: helm.toolkit.fluxcd.io/v2
+kind: HelmRelease
+metadata:
+  name: gha-runner-scale-set-controller
+  namespace: arc-systems
+spec:
+  interval: 10m
+
+  install:
+    remediation:
+      retries: 3
+
+  upgrade:
+    remediation:
+      retries: 3
+
+  chartRef:
+    kind: OCIRepository
+    name: gha-runner-scale-set-controller
+    namespace: arc-systems
+
+  values:
+    replicaCount: 1
